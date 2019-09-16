@@ -42,7 +42,22 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: Grid(),
+      home:
+      Center(
+          child: Container(
+//            decoration: BoxDecoration(
+//                gradient: LinearGradient(
+//                    begin: Alignment.topRight,
+//                    end: Alignment.bottomLeft,
+//                    colors: [Colors.blueAccent, Colors.tealAccent]
+//                )),
+            child:  Grid(),
+          ))
+
+
+
+
+
     );
   }
 }
@@ -93,6 +108,7 @@ class GridState extends State<Grid> {
 
   @override
   Widget build(BuildContext context) {
+
     return Listener(
 
       onPointerDown: _detectTapedItem,
@@ -115,12 +131,65 @@ class GridState extends State<Grid> {
 
             index: index,
             child: Container(
-              color: selectedIndexes.contains(index) ? Colors.red : Colors.blue,
+             // color: selectedIndexes.contains(index) ? Colors.red : Colors.blue,
+
+
+
+              decoration: BoxDecoration(
+                  borderRadius: new BorderRadius.circular(8.0),
+//                  gradient: LinearGradient(
+//                      begin: Alignment.topRight,
+//                      end: Alignment.bottomLeft,
+//                      colors: selectedIndexes.contains(index) ?  [Colors.blue, Colors.red] : [Colors.black, Colors.yellow] ,
+//
+//
+//
+//                  )
+
+
+                  gradient : RadialGradient(
+                    center: const Alignment(0, 0), // near the top right
+                    radius: 0.9,
+                    colors: selectedIndexes.contains(index) ?[Colors.blue, Colors.red]  :[
+                    //  const Color(0x3546AF ), // yellow sun
+                      const Color(0xff6666 ), // yellow sun
+
+                      const Color(0xFF0099FF), // blue sky
+                    ],
+                    stops: [0.4, 1.0],
+                  )
+
+              ),
+              child: Center(
+                child: 
+//                Text(
+//                  '',
+//                  style: TextStyle(
+//                      fontSize: 20.0,
+//                      fontWeight: FontWeight.bold,
+//                      color: Colors.white),
+//                ),
+
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: CustomPaint(
+                    painter: ShapesPainter(),
+                    child: Container(height: 700,),
+                  ),
+                ),
+              ),
+
+
+
+
             ),
           );
         },
       ),
+
+
     );
+
   }
 
   void _clearSelection(PointerUpEvent event) {
@@ -129,6 +198,70 @@ class GridState extends State<Grid> {
       selectedIndexes.clear();
     });
   }
+}
+
+class ShapesPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+//    // TODO: implement paint
+//    final paint = Paint();
+//    // set the color property of the paint
+//    paint.color = Colors.deepOrange;
+//    // center of the canvas is (x,y) => (width/2, height/2)
+//    var center = Offset(size.width / 2, size.height / 2);
+//
+//    // draw the circle on centre of canvas having radius 75.0
+//    canvas.drawCircle(center, 10.0, paint);
+//
+////////////////////////
+//    paint.color = Colors.green[800];
+//    paint.style = PaintingStyle.stroke;
+//    paint.strokeWidth = 2.0;
+//
+//    var path = Path();
+//
+//    path.lineTo(size.width, size.height);
+//
+//    canvas.drawPath(path, paint);
+//
+//
+/////////////////////
+//
+////    paint.color = Colors.green[800];
+////    paint.style = PaintingStyle.fill; // Change this to fill
+////
+////
+////
+////    path.moveTo(0, size.height * 0.7);
+////    path.moveTo(0.25, size.height * 0.25/2);
+////    path.moveTo(0.75, size.height * 0.25/2);
+////    path.moveTo(1, size.height * 0.25);
+//////    path.quadraticBezierTo(
+//////        size.width / 2, size.height / 2, size.width, size.height * 0.25);
+////    path.lineTo(size.width, 0);
+////    path.lineTo(0, 0);
+////
+////    canvas.drawPath(path, paint);
+//    /////////////////
+//
+//
+//    var paint2 = Paint();
+//    paint2.color = Colors.green[800];
+//    paint2.style = PaintingStyle.fill; // Change this to fill
+//
+//    var path2 = Path();
+//
+//    path2.moveTo(0, size.height * 0.25);
+//    path2.quadraticBezierTo(
+//        size.width / 2, size.height / 2, size.width, size.height * 0.25);
+////    path2.lineTo(size.width, 0);
+////    path2.lineTo(0, 0);
+//
+//    canvas.drawPath(path2, paint2);
+
+  }
+  @override
+   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
 class Foo extends SingleChildRenderObjectWidget {
